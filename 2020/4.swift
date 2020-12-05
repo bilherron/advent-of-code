@@ -1,8 +1,7 @@
 import Foundation
 
 let input = "4.input.txt"
-var validPassportCountPart1 = 0
-var validPassportCountPart2 = 0
+var validPassportCountPart1 = 0, validPassportCountPart2 = 0
 do {
     let passportBatch = try String(contentsOfFile: input, encoding: .ascii)
     let passports = passportBatch.components(separatedBy: "\n\n")
@@ -13,9 +12,9 @@ do {
                                 .components(separatedBy: ",")
         if checkFields(passport: passport) {
             validPassportCountPart1 += 1
-        }
-        if checkFields(passport: passport) && validateFields(passport: passport) {
-            validPassportCountPart2 += 1
+            if validateFields(passport: passport) {
+                validPassportCountPart2 += 1
+            }
         }
     }
     // Part 1
@@ -70,14 +69,14 @@ func validateFields(passport: [String]) -> Bool {
                 if !value.hasSuffix("in") && !value.hasSuffix("cm") {
                     return false
                 }
-                let numValue = value.prefix(through:value.index(value.endIndex, offsetBy: -3))
+                let numValue = Int(value.prefix(through:value.index(value.endIndex, offsetBy: -3)))!
                 if value.hasSuffix("in") {
-                    if Int(numValue)! < 59 || Int(numValue)! > 76 {
+                    if numValue < 59 || numValue > 76 {
                         return false
                     }
                 }
                 if value.hasSuffix("cm") {
-                    if Int(numValue)! < 150 || Int(numValue)! > 193 {
+                    if numValue < 150 || numValue > 193 {
                         return false
                     }
                 }
@@ -87,10 +86,10 @@ func validateFields(passport: [String]) -> Bool {
                     return false
                 }
             case "ecl":
-            let eyeColors: Set = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-            if !eyeColors.contains(value) {
-                return false
-            }
+                let eyeColors: Set = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+                if !eyeColors.contains(value) {
+                    return false
+                }
             case "pid":
                 let regex = try? NSRegularExpression(pattern: "^[0-9]{9}$")
                 if regex?.numberOfMatches(in: value, options: [], range: NSRange(location: 0, length: value.count)) == 0 {
