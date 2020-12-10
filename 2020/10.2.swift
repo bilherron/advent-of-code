@@ -18,7 +18,7 @@ while currentJoltage < adapters.max()! {
       let indexOfPossibleAdapter = adapters.firstIndex(of: possibleAdapters[0])!
       let nextIndex = indexOfPossibleAdapter + possibleAdapters.count
       if (adapters.indices.contains(nextIndex) && (adapters[nextIndex] - possibleAdapter) > 3) {
-        let adjustment = abs((index + 1) - possibleAdapters.count)
+        let adjustment =  possibleAdapters.count - (index + 1)
         permutations -= Decimal(adjustment)
       }
     }
