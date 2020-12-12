@@ -11,13 +11,17 @@ var currentJoltage = 0
 var possibleAdapterPerms = [Decimal]()
 
 while currentJoltage < adapters.max()! {
+  // possible adapters are 1, 2, or 3 more than the current adapter
   let possibleAdapters = adapters.filter( { $0 == (currentJoltage + 1) || $0 == (currentJoltage + 2) || $0 == (currentJoltage + 3) } )
   if possibleAdapters.count > 0 {
+    // possible sequences containing these possible adapters, -1 because the final sequence must
+    // include at least one possible adapter or else the sequence will break the rules
     var permutations = pow(2, possibleAdapters.count) - 1
     for (index, possibleAdapter) in possibleAdapters.enumerated() {
       let indexOfPossibleAdapter = adapters.firstIndex(of: possibleAdapters[0])!
       let nextIndex = indexOfPossibleAdapter + possibleAdapters.count
       if (adapters.indices.contains(nextIndex) && (adapters[nextIndex] - possibleAdapter) > 3) {
+        // remove possible sequences where this possibleAdapter is the last adapter in the sequence
         let adjustment =  possibleAdapters.count - (index + 1)
         permutations -= Decimal(adjustment)
       }
