@@ -3,12 +3,12 @@ import { readFileSync } from 'fs';
 const exampleInput = readFileSync('./example.input.txt', 'utf-8').split('\n')
 const puzzleInput = readFileSync('./input.txt', 'utf-8').split('\n')
 
-type OctopusGrid = number[][];
+type OctopusGridType = number[][];
 
-class OctopuGrid {
-  grid: OctopusGrid;
+class OctopusGrid {
+  grid: OctopusGridType;
 
-  constructor(grid: OctopusGrid) {
+  constructor(grid: OctopusGridType) {
     this.grid = grid;
   }
 
@@ -55,7 +55,7 @@ class OctopuGrid {
 }
 
 let flashSum = 0;
-let octoGrid = new OctopuGrid(puzzleInput.map(row => row.split('').map(n => +n)));
+let octoGrid = new OctopusGrid(puzzleInput.map(row => row.split('').map(n => +n)));
 for (let i = 1; i <= 100; i++) {
   octoGrid.step();
   flashSum += octoGrid.grid.flat().reduce((acc, octo) => {

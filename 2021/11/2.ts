@@ -3,13 +3,13 @@ import { readFileSync } from 'fs';
 const exampleInput = readFileSync('./example.input.txt', 'utf-8').split('\n')
 const puzzleInput = readFileSync('./input.txt', 'utf-8').split('\n')
 
-type OctopusGrid = number[][];
+type OctopusGridType = number[][];
 
-class OctopuGrid {
-  grid: OctopusGrid;
+class OctopusGrid {
+  grid: OctopusGridType;
   octopusCount: number;
 
-  constructor(grid: OctopusGrid) {
+  constructor(grid: OctopusGridType) {
     this.grid = grid;
     this.octopusCount = grid.length * grid[0].length;
   }
@@ -55,7 +55,7 @@ class OctopuGrid {
   }
 }
 
-const octoGrid = new OctopuGrid(puzzleInput.map(row => row.split('').map(n => +n)));
+const octoGrid = new OctopusGrid(puzzleInput.map(row => row.split('').map(n => +n)));
 let i = 1;
 while (true) {
   octoGrid.step();
