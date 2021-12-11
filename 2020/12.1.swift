@@ -1,6 +1,6 @@
 import Foundation
 
-// https://adventofcode.com/2020/day/11
+// https://adventofcode.com/2020/day/12
 let input = importPuzzleInput("./12.input.txt")
 // let input = importPuzzleInput("./12.input.test.txt")
 var directions = input.components(separatedBy: "\n")
