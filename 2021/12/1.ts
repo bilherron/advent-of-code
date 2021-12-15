@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 
-const exampleInput = readFileSync('./example.input.txt', 'utf-8').split('\n')
-const puzzleInput = readFileSync('./input.txt', 'utf-8').split('\n')
+const exampleInput = readFileSync('./example.input.txt', 'utf-8').split('\n');
+const puzzleInput = readFileSync('./input.txt', 'utf-8').split('\n');
 
 const segments = puzzleInput.map(raw => raw.split('-'));
 
