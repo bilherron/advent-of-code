@@ -48,19 +48,19 @@ function processPacket(binString: string) {
     // operator
     const lengthTypeId = parseInt(binString.substring(cursor, cursor + 1), 2);
     cursor += 1;
-    
+
     if (lengthTypeId === 0) {
-      let remainingLength = parseInt(binString.substring(cursor, cursor + 15), 2);
+      let remainingBits = parseInt(binString.substring(cursor, cursor + 15), 2);
       cursor += 15;
-      while (remainingLength > 0) {
+      while (remainingBits > 0) {
         const ret = processPacket(binString.substring(cursor));
-        remainingLength -= ret.packetLength;
+        remainingBits -= ret.packetLength;
         cursor += ret.packetLength;
       }
     } else if (lengthTypeId === 1) {
-      let length = parseInt(binString.substring(cursor, cursor + 11), 2);
+      let numberOfPackets = parseInt(binString.substring(cursor, cursor + 11), 2);
       cursor += 11;
-      for (let i = 1; i <= length; i++) {
+      for (let i = 1; i <= numberOfPackets; i++) {
         const ret = processPacket(binString.substring(cursor));
         cursor += ret.packetLength;
       }
